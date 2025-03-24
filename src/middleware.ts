@@ -1,33 +1,17 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
+export const config = {
+  matcher: ['/', '/menu', '/account', '/dashboard', '/profile', '/settings']
+}
+
 export async function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname
-
-  // These routes require authentication
-  const protectedRoutes = [
-    '/',
-    '/menu',
-    '/account',
-    '/dashboard',
-    '/profile',
-    '/settings',
-  ]
-
-  // Check if the current route is in the protected routes list
-  const isProtectedRoute = protectedRoutes.some(route => 
-    pathname === route || pathname.startsWith(`${route}/`)
-  )
-
-  // If the route is not protected, allow the request
-  if (!isProtectedRoute) {
-    return NextResponse.next()
-  }
-
-  // Create a response with the current pathname
+  const { pathname } = request.nextUrl
+  
+  // Create a response to modify
   const response = NextResponse.next()
 
-  // Create Supabase client with the request and response objects
+  // Create supabase client with request/response
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -64,11 +48,11 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // Check if the user is authenticated
+  // Get session
   const { data: { session } } = await supabase.auth.getSession()
 
-  // If the user is not authenticated and the route is protected, redirect to sign in
-  if (!session && isProtectedRoute) {
+  // If no session and on a protected route, redirect to sign in
+  if (!session) {
     const redirectUrl = new URL('/auth/signin', request.url)
     return NextResponse.redirect(redirectUrl)
   }
