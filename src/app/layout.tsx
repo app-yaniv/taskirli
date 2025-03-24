@@ -47,7 +47,10 @@ export default function RootLayout({
 
               {/* Right Menu */}
               <div className="flex items-center gap-4">
-                <Link href="/host" className="hidden md:block hover:bg-gray-100 px-4 py-2 rounded-full transition">
+                <Link 
+                  href="/host" 
+                  className="text-[#222222] hover:bg-gray-50 px-4 py-3 rounded-full transition-all"
+                >
                   Taskirli your home
                 </Link>
                 <button 

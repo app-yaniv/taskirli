@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- House shape -->
+  <path d="M200 50L350 200H50L200 50Z" fill="#F87171" stroke="#EF4444" stroke-width="2"/>
+  <rect x="100" y="200" width="200" height="100" fill="#F87171" stroke="#EF4444" stroke-width="2"/>
+  
+  <!-- Door -->
+  <rect x="175" y="220" width="50" height="80" fill="#EF4444"/>
+  
+  <!-- Windows -->
+  <rect x="120" y="220" width="40" height="40" fill="#EF4444"/>
+  <rect x="240" y="220" width="40" height="40" fill="#EF4444"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="200" cy="150" r="20" fill="#EF4444"/>
+  <path d="M190 150L210 150M200 140L200 160" stroke="white" stroke-width="2"/>
+</svg> 
