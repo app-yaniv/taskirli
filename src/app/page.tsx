@@ -1,13 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SlidersHorizontal } from "lucide-react";
 
 const categories = [
-  { name: "Pools", icon: "🏊‍♂️" },
-  { name: "Houses", icon: "🏠" },
-  { name: "Apartments", icon: "🏢" },
-  { name: "Camping", icon: "⛺" },
-  { name: "Mountains", icon: "⛰️" },
-  { name: "Beach", icon: "🏖️" },
+  { name: "Amazing views", icon: "/icons/categories/amazing-views.svg" },
+  { name: "Beachfront", icon: "/icons/categories/beachfront.svg" },
+  { name: "Lake", icon: "/icons/categories/lake.svg" },
+  { name: "Beach", icon: "/icons/categories/beach.svg" },
+  { name: "Tiny homes", icon: "/icons/categories/tiny-homes.svg" },
+  { name: "Rooms", icon: "/icons/categories/rooms.svg" },
+  { name: "Countryside", icon: "/icons/categories/countryside.svg" },
+  { name: "Cabins", icon: "/icons/categories/cabins.svg" },
+  { name: "Lakefront", icon: "/icons/categories/lakefront.svg" },
+  { name: "Domes", icon: "/icons/categories/domes.svg" },
+  { name: "OMG!", icon: "/icons/categories/omg.svg" },
+  { name: "Treehouses", icon: "/icons/categories/treehouses.svg" },
+  { name: "Bed & breakfasts", icon: "/icons/categories/bed-and-breakfasts.svg" },
+  { name: "Design", icon: "/icons/categories/design.svg" },
+  { name: "Farms", icon: "/icons/categories/farms.svg" }
 ];
 
 const featuredStays = [
@@ -67,19 +77,26 @@ export default function Home() {
       {/* Categories */}
       <div className="max-w-6xl mx-auto px-4 -mt-16 relative z-10">
         <div className="bg-white rounded-xl shadow-lg p-8">
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-8">
-            {categories.map((category) => (
-              <Link 
-                href={`/category/${category.name.toLowerCase()}`} 
-                key={category.name}
-                className="flex flex-col items-center gap-2 text-gray-600 hover:text-gray-900 transition group"
-              >
-                <div className="text-3xl group-hover:scale-110 transition duration-200">
-                  {category.icon}
-                </div>
-                <span className="text-sm font-medium">{category.name}</span>
-              </Link>
-            ))}
+          <div className="flex items-center gap-4">
+            <div className="flex-1 flex items-center gap-8 overflow-x-auto scrollbar-hide pr-4">
+              {categories.map((category) => (
+                <button 
+                  key={category.name}
+                  className="flex flex-col items-center gap-2 min-w-fit opacity-60 hover:opacity-100 transition group"
+                >
+                  <div className="w-6 h-6">
+                    <img src={category.icon} alt={category.name} className="w-full h-full" />
+                  </div>
+                  <span className="text-xs whitespace-nowrap">{category.name}</span>
+                </button>
+              ))}
+            </div>
+            <div className="flex-shrink-0 border-l pl-4">
+              <button className="flex items-center gap-2 px-4 py-3 rounded-xl border border-gray-200 hover:border-gray-300 transition-all bg-white">
+                <SlidersHorizontal className="w-4 h-4" />
+                <span className="text-xs font-medium">Filters</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
