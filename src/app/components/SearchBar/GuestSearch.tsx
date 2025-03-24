@@ -5,8 +5,14 @@ interface GuestSearchProps {
     adults: number;
     children: number;
     infants: number;
+    pets: number;
   };
-  onChange: (guests: { adults: number; children: number; infants: number }) => void;
+  onChange: (guests: {
+    adults: number;
+    children: number;
+    infants: number;
+    pets: number;
+  }) => void;
 }
 
 interface CounterProps {
@@ -56,34 +62,114 @@ export default function GuestSearch({ guests, onChange }: GuestSearchProps) {
   const updateGuests = (key: keyof typeof guests, value: number) => {
     onChange({
       ...guests,
-      [key]: value
+      [key]: Math.max(0, value)
     });
   };
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <div className="space-y-1">
-        <Counter
-          label="Adults"
-          description="Ages 13 or above"
-          value={guests.adults}
-          onChange={(value) => updateGuests('adults', value)}
-          min={1}
-        />
-        <div className="border-b"></div>
-        <Counter
-          label="Children"
-          description="Ages 2–12"
-          value={guests.children}
-          onChange={(value) => updateGuests('children', value)}
-        />
-        <div className="border-b"></div>
-        <Counter
-          label="Infants"
-          description="Under 2"
-          value={guests.infants}
-          onChange={(value) => updateGuests('infants', value)}
-        />
+    <div className="bg-white rounded-2xl">
+      {/* Adults */}
+      <div className="flex items-center justify-between py-4">
+        <div>
+          <div className="font-medium">Adults</div>
+          <div className="text-sm text-gray-500">Ages 13 or above</div>
+        </div>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => updateGuests('adults', guests.adults - 1)}
+            className={`w-8 h-8 rounded-full border flex items-center justify-center ${
+              guests.adults <= 0 ? 'border-gray-200 text-gray-200' : 'border-gray-400 text-gray-400 hover:border-gray-700 hover:text-gray-700'
+            }`}
+            disabled={guests.adults <= 0}
+          >
+            -
+          </button>
+          <span className="w-6 text-center">{guests.adults}</span>
+          <button
+            onClick={() => updateGuests('adults', guests.adults + 1)}
+            className="w-8 h-8 rounded-full border border-gray-400 text-gray-400 flex items-center justify-center hover:border-gray-700 hover:text-gray-700"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      {/* Children */}
+      <div className="flex items-center justify-between py-4 border-t">
+        <div>
+          <div className="font-medium">Children</div>
+          <div className="text-sm text-gray-500">Ages 2–12</div>
+        </div>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => updateGuests('children', guests.children - 1)}
+            className={`w-8 h-8 rounded-full border flex items-center justify-center ${
+              guests.children <= 0 ? 'border-gray-200 text-gray-200' : 'border-gray-400 text-gray-400 hover:border-gray-700 hover:text-gray-700'
+            }`}
+            disabled={guests.children <= 0}
+          >
+            -
+          </button>
+          <span className="w-6 text-center">{guests.children}</span>
+          <button
+            onClick={() => updateGuests('children', guests.children + 1)}
+            className="w-8 h-8 rounded-full border border-gray-400 text-gray-400 flex items-center justify-center hover:border-gray-700 hover:text-gray-700"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      {/* Infants */}
+      <div className="flex items-center justify-between py-4 border-t">
+        <div>
+          <div className="font-medium">Infants</div>
+          <div className="text-sm text-gray-500">Under 2</div>
+        </div>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => updateGuests('infants', guests.infants - 1)}
+            className={`w-8 h-8 rounded-full border flex items-center justify-center ${
+              guests.infants <= 0 ? 'border-gray-200 text-gray-200' : 'border-gray-400 text-gray-400 hover:border-gray-700 hover:text-gray-700'
+            }`}
+            disabled={guests.infants <= 0}
+          >
+            -
+          </button>
+          <span className="w-6 text-center">{guests.infants}</span>
+          <button
+            onClick={() => updateGuests('infants', guests.infants + 1)}
+            className="w-8 h-8 rounded-full border border-gray-400 text-gray-400 flex items-center justify-center hover:border-gray-700 hover:text-gray-700"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      {/* Pets */}
+      <div className="flex items-center justify-between py-4 border-t">
+        <div>
+          <div className="font-medium">Pets</div>
+          <div className="text-sm text-gray-500 underline cursor-pointer">Bringing a service animal?</div>
+        </div>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => updateGuests('pets', guests.pets - 1)}
+            className={`w-8 h-8 rounded-full border flex items-center justify-center ${
+              guests.pets <= 0 ? 'border-gray-200 text-gray-200' : 'border-gray-400 text-gray-400 hover:border-gray-700 hover:text-gray-700'
+            }`}
+            disabled={guests.pets <= 0}
+          >
+            -
+          </button>
+          <span className="w-6 text-center">{guests.pets}</span>
+          <button
+            onClick={() => updateGuests('pets', guests.pets + 1)}
+            className="w-8 h-8 rounded-full border border-gray-400 text-gray-400 flex items-center justify-center hover:border-gray-700 hover:text-gray-700"
+          >
+            +
+          </button>
+        </div>
       </div>
     </div>
   );

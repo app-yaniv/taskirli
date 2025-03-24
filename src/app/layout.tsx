@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-import SearchBar from "./components/SearchBar/SearchBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +26,21 @@ export default function RootLayout({
             </Link>
 
             {/* Search Bar */}
-            <SearchBar />
+            <Link 
+              href="/search"
+              className="hidden md:flex items-center gap-4 px-4 py-2 border rounded-full shadow-sm hover:shadow-md transition"
+            >
+              <button className="font-medium">Anywhere</button>
+              <span className="h-5 w-px bg-gray-300"></span>
+              <button className="font-medium">Any week</button>
+              <span className="h-5 w-px bg-gray-300"></span>
+              <button className="text-gray-600">Add guests</button>
+              <button className="bg-rose-500 p-2 rounded-full text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+              </button>
+            </Link>
 
             {/* Right Menu */}
             <div className="flex items-center gap-4">
