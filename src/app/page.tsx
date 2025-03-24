@@ -1,147 +1,147 @@
-import Image from "next/image";
-import Link from "next/link";
-import { SlidersHorizontal } from "lucide-react";
+'use client'
 
-const categories = [
-  { name: "Amazing views", icon: "/icons/categories/amazing-views.svg" },
-  { name: "Beachfront", icon: "/icons/categories/beachfront.svg" },
-  { name: "Lake", icon: "/icons/categories/lake.svg" },
-  { name: "Beach", icon: "/icons/categories/beach.svg" },
-  { name: "Tiny homes", icon: "/icons/categories/tiny-homes.svg" },
-  { name: "Rooms", icon: "/icons/categories/rooms.svg" },
-  { name: "Countryside", icon: "/icons/categories/countryside.svg" },
-  { name: "Cabins", icon: "/icons/categories/cabins.svg" },
-  { name: "Lakefront", icon: "/icons/categories/lakefront.svg" },
-  { name: "Domes", icon: "/icons/categories/domes.svg" },
-  { name: "OMG!", icon: "/icons/categories/omg.svg" },
-  { name: "Treehouses", icon: "/icons/categories/treehouses.svg" },
-  { name: "Bed & breakfasts", icon: "/icons/categories/bed-and-breakfasts.svg" },
-  { name: "Design", icon: "/icons/categories/design.svg" },
-  { name: "Farms", icon: "/icons/categories/farms.svg" }
-];
+import { useState } from 'react'
+import { Sliders } from 'lucide-react'
+import FilterModal from '@/components/features/FilterModal'
 
 const featuredStays = [
   {
     id: 1,
-    name: "Cozy Mountain Cabin",
-    location: "Swiss Alps",
-    price: 200,
+    name: 'Cozy Mountain Cabin',
+    location: 'Ontario, Norway',
+    imageUrl: 'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?ixlib=rb-4.0.3',
     rating: 4.8,
-    image: "https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&q=80"
+    price: 120
   },
   {
     id: 2,
-    name: "Luxury Beach Villa",
-    location: "Maldives",
-    price: 500,
+    name: 'Luxury Beach Villa',
+    location: 'Maldives',
+    imageUrl: 'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-4.0.3',
     rating: 4.9,
-    image: "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80"
+    price: 450
   },
   {
     id: 3,
-    name: "Modern City Apartment",
-    location: "New York",
-    price: 300,
+    name: 'Modern City Apartment',
+    location: 'New York',
+    imageUrl: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3',
     rating: 4.7,
-    image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80"
+    price: 200
   }
-];
+]
 
 export default function Home() {
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false)
+
   return (
-    <div className="min-h-screen">
+    <main className="flex min-h-screen flex-col">
       {/* Hero Section */}
-      <div className="relative h-[80vh] w-full">
-        <Image
-          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80"
-          alt="Hero background"
-          fill
-          className="object-cover"
-          priority
+      <div className="relative w-full h-[50vh]">
+        <img
+          src="https://images.unsplash.com/photo-1491555103944-7c647fd857e6?ixlib=rb-4.0.3"
+          alt="Mountain landscape"
+          className="w-full h-full object-cover brightness-[0.85]"
         />
-        <div className="absolute inset-0 bg-black/30">
-          <div className="container mx-auto px-4 h-full flex flex-col justify-center items-center text-white">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-center">
-              Find your next stay
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-center">
-              Search low prices on hotels, homes, and much more...
-            </p>
-            <button className="bg-rose-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-rose-600 transition">
-              Start your search
-            </button>
-          </div>
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
+          <h1 className="text-5xl md:text-6xl font-bold mb-4">
+            Find your next stay
+          </h1>
+          <p className="text-xl md:text-2xl mb-8">
+            Search low prices on hotels, homes, and much more...
+          </p>
+          <button className="bg-[#FF385C] text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-[#E31C5F] transition-colors">
+            Start your search
+          </button>
         </div>
       </div>
 
-      {/* Categories */}
-      <div className="max-w-6xl mx-auto px-4 -mt-16 relative z-10">
-        <div className="bg-white rounded-xl shadow-lg p-8">
+      {/* White Box with Shadow */}
+      <div className="sticky top-0 bg-white shadow-md py-6 z-10">
+        <div className="max-w-7xl mx-auto px-4">
+          {/* Categories Section */}
           <div className="flex items-center gap-4">
-            <div className="flex-1 flex items-center gap-8 overflow-x-auto scrollbar-hide pr-4">
-              {categories.map((category) => (
-                <button 
-                  key={category.name}
-                  className="flex flex-col items-center gap-2 min-w-fit opacity-60 hover:opacity-100 transition group"
-                >
-                  <div className="w-6 h-6">
-                    <img src={category.icon} alt={category.name} className="w-full h-full" />
-                  </div>
-                  <span className="text-xs whitespace-nowrap">{category.name}</span>
-                </button>
-              ))}
+            <div className="flex-1 overflow-x-auto">
+              <div className="flex gap-8 pr-4">
+                {categories.map((category) => (
+                  <button
+                    key={category.label}
+                    className="flex flex-col items-center gap-2 min-w-fit text-gray-600 hover:text-gray-900"
+                  >
+                    <img
+                      src={`/icons/categories/${category.icon}.svg`}
+                      alt={category.label}
+                      className="w-6 h-6"
+                    />
+                    <span className="text-xs">{category.label}</span>
+                  </button>
+                ))}
+              </div>
             </div>
             <div className="flex-shrink-0 border-l pl-4">
-              <button className="flex items-center gap-2 px-4 py-3 rounded-xl border border-gray-200 hover:border-gray-300 transition-all bg-white">
-                <SlidersHorizontal className="w-4 h-4" />
-                <span className="text-xs font-medium">Filters</span>
+              <button
+                onClick={() => setIsFilterModalOpen(true)}
+                className="flex items-center gap-2 px-4 py-3 border rounded-xl hover:border-gray-900"
+              >
+                <Sliders className="w-4 h-4" />
+                <span>Filters</span>
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Featured Stays */}
-      <div className="max-w-6xl mx-auto px-4 py-16">
-        <h2 className="text-2xl font-semibold mb-8">Featured stays</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Featured Stays Section */}
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredStays.map((stay) => (
-            <Link href={`/stays/${stay.id}`} key={stay.id} className="group">
-              <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
-                <Image
-                  src={stay.image}
+            <div key={stay.id} className="group cursor-pointer">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+                <img
+                  src={stay.imageUrl}
                   alt={stay.name}
-                  fill
-                  className="object-cover group-hover:scale-105 transition duration-200"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-                <button 
-                  className="absolute top-4 right-4 p-2 rounded-full bg-white/80 hover:bg-white transition"
-                  aria-label="Add to favorites"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                  </svg>
-                </button>
               </div>
               <div className="mt-3">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-medium">{stay.name}</h3>
-                    <p className="text-gray-600">{stay.location}</p>
-                  </div>
+                <div className="flex justify-between">
+                  <h3 className="font-medium text-lg">{stay.name}</h3>
                   <div className="flex items-center gap-1">
                     <span>★</span>
                     <span>{stay.rating}</span>
                   </div>
                 </div>
+                <p className="text-gray-500">{stay.location}</p>
                 <p className="mt-1">
                   <span className="font-medium">${stay.price}</span> night
                 </p>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>
-    </div>
-  );
+
+      {/* Filter Modal */}
+      <FilterModal
+        isOpen={isFilterModalOpen}
+        onClose={() => setIsFilterModalOpen(false)}
+      />
+    </main>
+  )
 }
+
+const categories = [
+  { label: 'Amazing views', icon: 'amazing-views' },
+  { label: 'Beachfront', icon: 'beachfront' },
+  { label: 'Lake', icon: 'lake' },
+  { label: 'Beach', icon: 'beach' },
+  { label: 'Tiny homes', icon: 'tiny-homes' },
+  { label: 'Rooms', icon: 'rooms' },
+  { label: 'Countryside', icon: 'countryside' },
+  { label: 'Cabins', icon: 'cabins' },
+  { label: 'Lakefront', icon: 'lakefront' },
+  { label: 'Domes', icon: 'domes' },
+  { label: 'OMG!', icon: 'omg' },
+  { label: 'Treehouses', icon: 'treehouses' },
+  { label: 'Bed & breakfasts', icon: 'bed-and-breakfasts' }
+]
