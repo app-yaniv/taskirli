@@ -8,3 +8,4 @@ alwaysApply: true
 
 - Always check for errors
 - Always fix linter errors
+- Do not push or upload to github unless I splicitly says so

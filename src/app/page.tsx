@@ -3,36 +3,12 @@
 import { useState } from 'react'
 import { Sliders } from 'lucide-react'
 import FilterModal from '@/components/features/FilterModal'
-
-const featuredStays = [
-  {
-    id: 1,
-    name: 'Cozy Mountain Cabin',
-    location: 'Ontario, Norway',
-    imageUrl: 'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?ixlib=rb-4.0.3',
-    rating: 4.8,
-    price: 120
-  },
-  {
-    id: 2,
-    name: 'Luxury Beach Villa',
-    location: 'Maldives',
-    imageUrl: 'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-4.0.3',
-    rating: 4.9,
-    price: 450
-  },
-  {
-    id: 3,
-    name: 'Modern City Apartment',
-    location: 'New York',
-    imageUrl: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3',
-    rating: 4.7,
-    price: 200
-  }
-]
+import PropertyCard from '@/components/PropertyCard'
+import { getFeaturedListings } from '@/lib/listings'
 
 export default function Home() {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false)
+  const featuredListings = getFeaturedListings()
 
   return (
     <main className="flex min-h-screen flex-col">
@@ -93,30 +69,18 @@ export default function Home() {
 
       {/* Featured Stays Section */}
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuredStays.map((stay) => (
-            <div key={stay.id} className="group cursor-pointer">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
-                <img
-                  src={stay.imageUrl}
-                  alt={stay.name}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
-              <div className="mt-3">
-                <div className="flex justify-between">
-                  <h3 className="font-medium text-lg">{stay.name}</h3>
-                  <div className="flex items-center gap-1">
-                    <span>★</span>
-                    <span>{stay.rating}</span>
-                  </div>
-                </div>
-                <p className="text-gray-500">{stay.location}</p>
-                <p className="mt-1">
-                  <span className="font-medium">${stay.price}</span> night
-                </p>
-              </div>
-            </div>
+        <h2 className="text-2xl font-semibold mb-6">Featured stays</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {featuredListings.map((listing) => (
+            <PropertyCard
+              key={listing.id}
+              id={listing.id}
+              title={listing.title}
+              location={listing.location}
+              images={listing.images}
+              price={listing.price}
+              rating={listing.rating}
+            />
           ))}
         </div>
       </div>
